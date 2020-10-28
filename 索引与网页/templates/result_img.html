@@ -1,0 +1,172 @@
+$def with (result)
+$ length = len(result) - 1
+<html>
+<head>
+    <meta name="referrer" content="never">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>"$result[0]"——搜索结果</title>
+
+    <link rel="stylesheet" href="static/reset.css" type="text/css" />
+    <link rel="stylesheet" href="static/result.css" type="text/css" />
+    <link href="static/font-awesome.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/slider.js"></script>
+    <script type="text/javascript" src="static/superfish.js"></script>
+    <script type="text/javascript" src="static/custom.js"></script>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+</head>
+
+<body>
+<div id="container" class="width">
+    <p id="back-top" style="display:block;">
+        <a href="#top">
+            <span>回到顶部</span>
+        </a>
+    </p>
+    <header>
+	<div class="width">
+        <h1><a href="/"><img src="static/logo.png"></a></h1>
+		<nav>
+            <ul class="sf-menu dropdown">
+                <li>
+                    <a href="/">文字搜索</a>
+                </li>
+                <li>
+                    <a href="/img">识图搜索</a>
+                </li>
+                <li>
+                    <a href="#">友情链接</a>
+                    <ul>
+                        <li><a href="https://www.jd.com" target="_blank">京东商城</a></li>
+                        <li><a href="https://www.suning.com" target="_blank">苏宁易购</a></li>
+                        <li><a href="https://www.tmall.com" target="_blank">淘宝天猫</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </nav>
+    </div>
+	<div class="clear"></div>
+    </header>
+
+    <div id="intro">
+	<div class="width">
+		<div class="intro-content">
+            <fieldset>
+                <form action="\s" method="get">
+                    <p style="margin-left:125px;">
+                        <input name="message" id="message" type="text" autocomplete maxlength="60">
+                        <input class="formbutton" value="夕夕一下" type="submit" />
+                    </p>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+	</div>
+
+    <div id="body">
+        <aside class="content-three sidebar small-sidebar left-sidebar" id="col-0">
+
+        </aside>
+
+        <aside class="content-three sidebar three-column" id="col-1">
+
+        </aside>
+
+        <aside class="content-three sidebar small-sidebar right-sidebar" id="col-2">
+
+        </aside>
+    	<div class="clear"></div>
+    </div>
+    <script>
+        $for i in range(1,length):
+            document.getElementById("col-$((i-1)%3)").innerHTML += " \
+                <div class='p-item' style='padding:20px 5px;height:570px;border:5px solid #bac;border-radius:30px'>\
+                    <div class='p-img' style='padding:3px 3px;border-radius:10px;'>\
+                        <a href = $result[i][6] target = '_blank'>\
+                            <img style='width:100%;height:300px;border-radius:10px;' class='img-rounded' src= $result[i][4][0]>\
+                        </a>\
+                    </div>\
+                    <div class='p-scroll' style='padding:3px 3px;'>\
+                        <ul>\
+                        $for j in range(1,len(result[i][4])):
+                            $if j > 4:
+                                $break
+                            <li class='inline' style='padding:3px 5px;'><img src='$result[i][4][j]' style='width:20%;height:52px;'></li>\
+                        </ul>\
+                    </div>\
+                    <div class='p-name' style='padding:3px 3px;'>\
+                        <a title='$result[i][0]' style='font-size:1.25em;-webkit-line-clamp:2;display: -webkit-box;word-wrap: break-word;overflow: hidden;text-overflow: ellipsis;-webkit-box-orient: vertical;' href = $result[i][6] target = '_blank'>\
+                            <em>$result[i][0]</em>\
+                        </a>\
+                    </div>\
+                    <div class='p-price' style='padding:3px 3px;'>\
+                        <span style='color:#00ff15;font-size:20px;margin-right:20px;'>\
+                            ￥$result[i][2]\
+                        </span>\
+                        <span style='color:red;font-size:23px;'>\
+                        $ score = result[i][9][:5]
+                        $if score == "20":
+                            用户评价：暂无！\
+                        $else:
+                            用户评价：$score！\
+                        </span>\
+                    </div>\
+                    $ info = "\t".join(result[i][3]).replace('"', " ")
+                    $if result[i][1] == "jd":
+                        <div style='background-image:url(static/jd.png);'>\
+                    $else:
+                        <div style='background-image:url(static/sn.png);'>\
+                    <div class='p-info' style='padding:3px 3px;' title='$:info'>\
+                    $for j in range(0,len(result[i][3])):
+                        $if j > 2:
+                            $break
+                        <span style='color:#c35dbb;font-size:18px;-webkit-line-clamp:1;display: -webkit-box;word-wrap: break-word;overflow: hidden;text-overflow: ellipsis;-webkit-box-orient: vertical;'>\
+                            $result[i][3][j]\
+                        </span>\
+                    </div>\
+                    <div class='p-comment' style='padding:3px 3px;height:66px;' title='$result[i][5]'>\
+                        <hr/ style='margin:5px 0px;'>\
+                        <span style='color:#00daff;font-size:16.5px;-webkit-line-clamp:3;display: -webkit-box;word-wrap: break-word;overflow: hidden;text-overflow: ellipsis;-webkit-box-orient: vertical;'>\
+                            $result[i][5]\
+                        </span>\
+                    </div>\
+                    </div>\
+                </div>";
+    </script>
+</div>
+
+<footer>
+    <div class="footer-content width">
+        <ul>
+            <li><h4>Kaipeng Zeng</h4></li>
+            <li><a href="###">曾锴鹏</a></li>
+        </ul>
+        <ul>
+            <li><h4>Jiahong Li</h4></li>
+            <li><a href="###">李嘉鸿</a></li>
+        </ul>
+        <ul>
+            <li><h4>Yanming Liu</h4></li>
+            <li><a href="###">刘彦铭</a></li>
+        </ul>
+        <ul>
+            <li><h4>Yifan Lu</h4></li>
+            <li><a href="###">卢亦凡</a></li>
+        </ul>
+        <ul class="endfooter">
+            <li><h4>幕后工作者</h4></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; &nbsp; 电工导C作品 &nbsp; 2019. &nbsp; by &nbsp; 第一组</p>
+     </div>
+</footer>
+
+</body>
+</html>
